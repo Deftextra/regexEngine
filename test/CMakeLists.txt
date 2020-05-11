@@ -11,6 +11,7 @@ include_directories(lib/googletest/googletest/include)
 set(SOURCE_FILES
  main.cpp # This corrosponds ot regex test
  src/regexEngine_tests.cpp #EngineTest
+ src/engine/engine_tests.cpp
  )
 
 add_executable(regexEngine_tests ${SOURCE_FILES}) 
