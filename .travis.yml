@@ -99,7 +99,6 @@ script:
   - cmake ../..
   - make install
   - cd ../..
-  - ./bin/regexEngine_tests # replace this with regexEngine
-# Mayboe replace with and appropriate test later one
-##  - ./bin/regexEngine 15 7 
+  - ./bin/regexEngine_tests
+  - ./bin/regexEngine
 
