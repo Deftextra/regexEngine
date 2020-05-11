@@ -1,3 +1,6 @@
+[![Build
+Status](https://travis-ci.com/Deftextra/regexEngine.svg?branch=master)](https://travis-ci.com/Deftextra/regexEngine)
+
 # Regex engine implementation
 The aim of this project is to create a regex engine using
 Thompson's construction:
