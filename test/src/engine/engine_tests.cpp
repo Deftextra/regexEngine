@@ -1,7 +1,5 @@
 #include "gtest/gtest.h"
-#include "gmock/gmock.h"
 #include <engine.h>
-
 
 
 TEST(TransitionTests, emptyTransitionIsEpsilon)
