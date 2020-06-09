@@ -24,7 +24,6 @@ namespace engine
         T* head;
         char symbol;
         bool isEpsilon;
-
     };
 }
 

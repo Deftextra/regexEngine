@@ -1,4 +1,5 @@
 #include "transition.h"
+#include "state.h"
 
 
 template <typename T>
@@ -34,4 +35,6 @@ inline bool engine::Transition<T>::getIsEpsilon() const
   return isEpsilon;
 }
 
+
 template class engine::Transition<int>;
+template class engine::Transition<engine::State>;
