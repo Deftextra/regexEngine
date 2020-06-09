@@ -1,7 +1,10 @@
-// This is where we put everything together
+#include <transition.h>
+#include <iostream>
+#include <state.h>
+using namespace engine;
 
-
-int main(int argc, const char *argv[]) {
+int main() 
+{ 
 
 
   return 0;
