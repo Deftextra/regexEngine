@@ -42,7 +42,6 @@
 
 include/divisible/*
 
-
 ## Local 
 
 .idea/*.xml
@@ -56,6 +55,7 @@ test/test_runner
 
 # Vim config files
 .ycm_extra_conf.py
+compile_commands.json
 
 # Ignore .vscode
 .vscode
