@@ -4,15 +4,17 @@ project(engine)
 
 set(SOURCE_FILES
   transition.cpp
+  transition.h
+  state.cpp
+  state.h
 )
 
 set(HEADER_FILES
   transition.h
+  state.h
 )
-  
 
-
-add_library(engine SHARED STATIC ${SOURCE_FILES})
+add_library(engine STATIC ${SOURCE_FILES})
 
 install(TARGETS engine DESTINATION ${REGEXENGINE_INSTALL_LIB_DIR})
 

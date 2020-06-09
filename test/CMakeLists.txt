@@ -6,10 +6,9 @@ add_subdirectory(lib/googletest)
 include_directories(${ENGINE_HEADERS_DIR})
 include_directories(lib/googletest/googletest/include)
 
-# Add new tests for files here setSOURCE_FILES
 set(SOURCE_FILES
  main.cpp
- src/Transition_tests.cpp
+ src/State_tests.cpp
  )
 
 add_executable(regexEngine_tests ${SOURCE_FILES})
