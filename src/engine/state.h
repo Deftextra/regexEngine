@@ -1,4 +1,5 @@
-#ifndef STATE_H
+#ifndef STATE_H 
+
 #define STATE_H
 
 #include <iostream>
@@ -10,23 +11,23 @@ namespace engine
 {
   class State
   {
-    using Transitions = Transition<State>;
     using Transition_ptr = Transition<State>*;
 
     friend class Automata;
 
     public:
       State();
+      ~State();
 
+      State& addTransition(Transition_ptr);
       std::vector<Transition_ptr> getTransitions() const;
-      bool isEmpty() const;
 
+      bool isEmpty() const;
+      bool getIsEnd() const;
 
     private:
-    // End states should always be empty
-      bool isEnd;
-      std::vector<Transition_ptr> transitions;
-  };
+      std::vector<Transition_ptr> transitions; 
+  }; 
 
   bool operator==(const State&,const State&);
 
