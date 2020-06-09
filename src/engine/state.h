@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <stdexcept>
-#include "transition.h" // includes transition
+#include "transition.h"
 
 namespace engine
 {
