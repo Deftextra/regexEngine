@@ -1,11 +1,16 @@
-#include <transition.h>
 #include <iostream>
-#include <state.h>
-using namespace engine;
+#include <sstream>
+#include <memory>
+#include <Automata.h>
 
-int main() 
+using namespace Automata;
+
+
+int main(int argc, char* argv[])
 { 
 
+  NDFA regexToNDFA {"tca*"};
 
-  return 0;
+  std::istringstream ss("tcaa");
+  std::cout <<  regexToNDFA.match(ss) << std::endl; 
 }

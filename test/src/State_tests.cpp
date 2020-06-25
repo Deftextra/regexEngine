@@ -1,54 +1,64 @@
 #include <state.h>
-#include "Transition_tests.h"
-#include "transition.h"
+#include <memory>
+#include <utility>
 #include "gtest/gtest.h" 
 
-using namespace engine;
-using Transition_ptr = Transition<State>*;
+using namespace Automata;
 
-
-INSTANTIATE_TYPED_TEST_CASE_P(TestStateEmptyTransition,EmptyTransitionTest ,State);
-
-INSTANTIATE_TYPED_TEST_CASE_P(TestcharacterTransition, CharacterTransitionTest, State);
-
-class emptyStateTest : public ::testing::Test
+class SymbolTransitionTest 
+: public
+  ::testing::WithParamInterface<std::pair<char,State_ptr>>,
+  public ::testing::Test
 {
   protected:
-    emptyStateTest() : value_{new State{}} {}
-
-    virtual ~emptyStateTest() { delete value_; }
-
-    State *value_;
-};
-
-
-class AddTransitionTest : public emptyStateTest, public ::testing::WithParamInterface<Transition<State>*>
-{
-  protected:
-    AddTransitionTest()
+    SymbolTransitionTest()
     {
-      value_->addTransition(GetParam());
+      end_ = State::create();
     };
+
+    State_ptr end_;
 };
 
-TEST_F(emptyStateTest, hasEmptyState) { EXPECT_TRUE(value_); }
-
-TEST_F(emptyStateTest, hasNoTransitions)
+TEST(StateTest, factoryCreatesState)
 {
-  EXPECT_TRUE(value_->isEmpty() && value_->getTransitions().empty());
+  EXPECT_TRUE(State::create());
 }
 
-TEST_P(AddTransitionTest, addsTransition)
+TEST(StateTest, factoryCreatesEmptyStates)
 {
-
-  EXPECT_EQ(value_->getTransitions().front(), GetParam());
+  State_ptr state = State::create();
+  
+  EXPECT_TRUE(state->isEmpty());
 }
 
-INSTANTIATE_TEST_CASE_P(Default, AddTransitionTest,
-    testing::Values(
-      new Transition<State> {},
-      new Transition<State> {'a'},
-      new Transition<State> {'b'},
-      new Transition<State> {'c'}
-      )
-    );
+TEST(StateTest, addsEpsilonTransitionToState)
+{
+  State_ptr start = State::create();
+  State_ptr end = State::create();
+
+  start->addTransition(end);
+
+  EXPECT_TRUE(start->hasEpsilonTransitionTo(start->addTransition()));
+  EXPECT_TRUE(start->hasEpsilonTransitionTo(end));
+}
+
+
+
+TEST_P(SymbolTransitionTest, addsSymbolTransitonToState)
+{
+  State_ptr start = State::create();
+  char symbol = GetParam().first;
+
+  start->addTransition(symbol, end_);
+
+  EXPECT_TRUE(start->hasSymbolTransitionTo(start->addTransition(symbol)));
+  EXPECT_TRUE(start->hasSymbolTransitionTo(end_));
+}
+
+INSTANTIATE_TEST_CASE_P(Default, SymbolTransitionTest,
+  testing::Values(
+    std::make_pair('a', State::create()),
+    std::make_pair('b', State::create()),
+    std::make_pair('c', State::create())
+    )
+);

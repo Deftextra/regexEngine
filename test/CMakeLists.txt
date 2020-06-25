@@ -9,6 +9,8 @@ include_directories(lib/googletest/googletest/include)
 set(SOURCE_FILES
  main.cpp
  src/State_tests.cpp
+ src/automata_tests.cpp
+ src/parser_tests.cpp
  )
 
 add_executable(regexEngine_tests ${SOURCE_FILES})

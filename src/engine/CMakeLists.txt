@@ -3,15 +3,21 @@ cmake_minimum_required(VERSION 3.2)
 project(engine)
 
 set(SOURCE_FILES
-  transition.cpp
-  transition.h
-  state.cpp
-  state.h
+  transitions/transition.cpp
+  transitions/transition.h
+  states/state.cpp
+  states/state.h
+  automata.cpp
+  automata.h
+  parser.cpp
+  parser.h
+
 )
 
 set(HEADER_FILES
-  transition.h
-  state.h
+  states/state.h
+  automata.h
+  parser.h
 )
 
 add_library(engine STATIC ${SOURCE_FILES})
