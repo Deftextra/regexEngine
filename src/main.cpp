@@ -1,8 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include <memory>
-#include <Automata.h>
-
+#include <Automata.h> 
 using namespace Automata;
 
 

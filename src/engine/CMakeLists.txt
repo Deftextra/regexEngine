@@ -11,7 +11,6 @@ set(SOURCE_FILES
   automata.h
   parser.cpp
   parser.h
-
 )
 
 set(HEADER_FILES

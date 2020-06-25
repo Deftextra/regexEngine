@@ -4,6 +4,8 @@ project(regexEngine_tests)
 add_subdirectory(lib/googletest)
 
 include_directories(${ENGINE_HEADERS_DIR})
+#include_directories(${STATES_HEADER_DIR})
+#include_directories(${TRANSITIONS_HEADER_DIR})
 include_directories(lib/googletest/googletest/include)
 
 set(SOURCE_FILES
