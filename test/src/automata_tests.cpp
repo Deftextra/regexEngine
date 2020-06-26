@@ -1,7 +1,5 @@
-#include <asm-generic/errno.h>
 #include <automata.h>
 #include "gtest/gtest.h" 
-#include <unistd.h>
 #include <vector>
 
 using namespace Automata;
@@ -15,7 +13,6 @@ class BasisTest : public ::testing::Test
       epsilonBasis->getStart().giveName(" Intial start of epsilonBasis");
       epsilonBasis->getEnd().giveName(" Initial end of epsilonBasis");
       symbolBasis->getStart().giveName("Initial start of symbolBasis");
-      symbolBasis->getEnd().giveName("Initial end of epsilonBasis");
 
     }
 
