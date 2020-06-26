@@ -1,6 +1,6 @@
 #include <iostream>
 #include <sstream>
-#include "engine/Automata.h"
+#include "engine/automata.h"
 
 using namespace Automata;
 
