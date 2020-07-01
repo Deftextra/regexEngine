@@ -1,7 +1,7 @@
 #include <sstream>
 #include <algorithm>
 #include <vector>
-#include "parser.h"
+#include "parser/parser.h"
 #include "automata.h"
 #include "states/state.h"
 

@@ -9,14 +9,14 @@ set(SOURCE_FILES
   states/state.h
   automata.cpp
   automata.h
-  parser.cpp
-  parser.h
+  parser/parser.cpp
+  parser/parser.h
 )
 
 set(HEADER_FILES
   states/state.h
   automata.h
-  parser.h
+  parser/parser.h
 )
 
 add_library(engine STATIC ${SOURCE_FILES})
