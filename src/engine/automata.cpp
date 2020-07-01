@@ -1,4 +1,5 @@
 #include <sstream>
+#include <algorithm>
 #include <vector>
 #include "parser.h"
 #include "automata.h"
@@ -19,7 +20,6 @@ Automata::NDFA::NDFA(char symbol)
   start = State::create();
   end = start->addTransition(symbol);
 }
-
 
 Automata::NDFA::NDFA(const std::string& regex)
 {

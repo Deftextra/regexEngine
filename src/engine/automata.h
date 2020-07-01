@@ -2,12 +2,7 @@
 #define AUTOMATA_H
 
 #include "states/state.h"
-#include <bits/c++config.h>
-#include <exception>
 #include <memory>
-#include <sched.h>
-#include <sys/types.h>
-#include <algorithm>
 
 namespace Automata
 {

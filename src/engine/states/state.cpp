@@ -1,8 +1,6 @@
 #include "state.h"
 #include "transitions/transition.h"
-#include <memory>
 #include <vector>
-#include <algorithm>
 
 using namespace Automata;
 Automata::State::State(std::string name)
@@ -82,7 +80,6 @@ std::vector<State> Automata::State::operator[](Transition::Type t) const
         states.push_back(*transition.getHead());
     }
   }
-
   return states;
 }
 
@@ -120,11 +117,8 @@ std::vector<State_ptr> Automata::State::getEndsFrom(Transition::Type t)
         states.push_back(transition.getHead());
     }
   }
-
   return states;
 }
-
-
 
 bool Automata::State::hasEpsilonTransitionTo(const State& state)
 {
@@ -189,5 +183,4 @@ std::ostream& Automata::operator<<(std::ostream& os, const State& s)
   os << s.getName() << std::endl;
 
   return os;
- 
 }

@@ -10,6 +10,7 @@
 
 namespace Automata 
 {
+  // can inherit a transiton as an implementation.
   class State
   {
     friend bool operator==(const State&, const State&);
@@ -27,10 +28,13 @@ namespace Automata
       void addTransition(State_ptr toState); 
       void addTransition(char symbol, State_ptr);
 
+
+      //  What if we create a general transition.
       std::vector<State> operator[] (char symbol) const;
       std::vector<State> operator[] (Transition::Type t) const;
       bool operator==(const State&);
 
+    
       std::vector<State_ptr> getEndsFrom(char symbol);
       std::vector<State_ptr> getEndsFrom(Transition::Type t);
 
