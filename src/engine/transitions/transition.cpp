@@ -1,14 +1,13 @@
-#include <memory>
 #include "transitions/transition.h"
 
 
 using namespace Automata;
 
 Transition::Transition(State_ptr head)
-  :head{head},epsilonValue{true}, symbolValue{0} {}
+  :head{head},type{epsilon}, symbolValue{epsilon} {}
 
 Transition::Transition(char symbol, State_ptr head)
-  :head{head}, epsilonValue{false}, symbolValue(symbol) {}
+  :head{head}, type{Transition::symbol}, symbolValue{symbol} {}
 
 Transition& Automata::Transition::changeHead(State_ptr head)
 {
@@ -29,7 +28,7 @@ Transition Automata::Transition::create(char symbol,State_ptr head)
 bool Automata::operator==(const Automata::Transition& lhs, const Automata::Transition& rhs)
 {
   return (lhs.head == rhs.head) &&
-    (lhs.epsilonValue == rhs.epsilonValue) &&
+    (lhs.type == rhs.type) &&
     lhs.symbol == rhs.symbol;
 }
 

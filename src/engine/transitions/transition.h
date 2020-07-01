@@ -12,16 +12,15 @@ namespace Automata
 
   class Transition 
   {
-
     friend  bool operator==(const Transition&, const Transition& rhs);
     friend class State;
     friend class NDFA;
 
     public:
-      enum Type {symbol, epsilon};
-      bool IsEpsilon() const { return epsilonValue; }
-      char getSymbol() const { return symbolValue;}
-      State_ptr getHead() const { return head; }
+      enum Type {epsilon, symbol };
+      bool IsEpsilon() const {return type == epsilon;}
+      char getSymbol() const {return symbolValue;}
+      State_ptr getHead() const {return head; }
 
     private:
       static  Transition create(State_ptr); 
@@ -33,7 +32,8 @@ namespace Automata
 
       char symbolValue;
       State_ptr head;
-      bool epsilonValue;
+      //TODO: Refactor code using class hieracies to remove type field,
+      Type type;
   };
   
 
