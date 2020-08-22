@@ -11,7 +11,6 @@ Automata::NDFA::NDFA()
 { 
   start = State::create();
   end = start->addTransition();
-  start->addTransition(start); 
 }
 
 
@@ -66,6 +65,7 @@ Automata::NDFA::NDFA(const std::string& regex)
   }
 
 }
+
 
 NDFA& Automata::NDFA::concat(const NDFA& a)
 {
