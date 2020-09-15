@@ -1,13 +1,19 @@
 #!/bin/bash
+
+# This script runs a clean build
+
 if [ -d "./build" ]; then
   echo "Removing build folder."
   rm -r build/;
+  mkdir build
+else 
+  mkdir build
 fi
 
+# Remove build artifacts,
 if [ -d "./lib" ]; then
   echo "Removing lib folder."
   rm -r lib/;
-
 fi
 
 if [ -d "./bin" ]; then
@@ -20,8 +26,6 @@ if [ -d "./include" ]; then
   rm -r include/;
 fi
 
-mkdir build
 cd build
-cmake ..
-make install
+Make install
 
