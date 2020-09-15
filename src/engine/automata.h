@@ -4,42 +4,38 @@
 #include "states/state.h"
 #include <memory>
 
-namespace Automata
+namespace Automata {
+class NDFA
 {
-  class NDFA
-  {
-    public:
-      // ----------- Basis ----------
-      NDFA();
-      NDFA(char a);
-      //-------------------------------
-      NDFA(const std::string& regex); 
+  public:
+    // ----------- Basis ----------
+    NDFA();
+    NDFA(char a);
+    //-------------------------------
+    NDFA(const std::string& regex);
 
-      State& getStart() const { return *start; }
-      State& getEnd() const { return *end; }
+    State& getStart() const { return *start; }
+    State& getEnd() const { return *end; }
 
-      NDFA& Union(const NDFA& a);
-      NDFA& concat(const NDFA& a);
-      NDFA& closure();
-      
-      bool match(std::istream& text);
+    NDFA& Union(const NDFA& a);
+    NDFA& concat(const NDFA& a);
+    NDFA& closure();
 
-    private:
-      State_ptr start;
-      State_ptr end;
+    bool match(std::istream& text);
 
-      std::vector<State> symbolTransiton(char symbol, const State& s);
-      void walk(const State& s, char symbol);
+  private:
+    State_ptr start;
+    State_ptr end;
 
-      bool isVistedState(const State& s);
+    std::vector<State> symbolTransiton(char symbol, const State& s);
+    void walk(const State& s, char symbol);
 
-      std::vector<State> visitedStates;
-      std::vector<State> endStates;
+    bool isVistedState(const State& s);
 
-
-
-  };
+    std::vector<State> visitedStates;
+    std::vector<State> endStates;
+};
 
 }
 
-#endif //AUTOMATA_H
+#endif // AUTOMATA_H

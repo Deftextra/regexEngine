@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.2)
 project(regexEngine)
 
-
 set(SOURCE_FILES main.cpp)
 
 include_directories(engine)

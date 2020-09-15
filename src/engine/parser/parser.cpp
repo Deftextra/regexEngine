@@ -6,130 +6,118 @@
 #include <string>
 
 // --------------- Notes -------------------------
-// Split tokens into operator and symbols. 
+// Split tokens into operator and symbols.
 // Act accordingly as we traverse the regex.
 //--------------------------------------------------
 
-//TODO: create proper exception classes.
+// TODO: create proper exception classes.
 
 using namespace Parser;
 
-
-std::string Parser::insertExplicitConcatOperator(std::string regex)
+std::string
+Parser::insertExplicitConcatOperator(std::string regex)
 {
-  std::string output;
+    std::string output;
 
-  std::istringstream sRegex{regex};
-  sRegex >> std::noskipws;
+    std::istringstream sRegex{ regex };
+    sRegex >> std::noskipws;
 
-  char token;
+    char token;
 
+    while (sRegex >> token) {
+        output += token;
 
-  while (sRegex >> token)
-  {
-    output += token;
+        if (token == '(' || token == '|')
+            continue;
 
-    if (token == '(' || token == '|') 
-      continue;
+        const char lookAhead = sRegex.peek();
 
-    const char lookAhead = sRegex.peek();
+        if (lookAhead == EOF)
+            continue;
 
-    
+        if (lookAhead == closure || lookAhead == Union || lookAhead == ')')
+            continue;
 
-    if (lookAhead == EOF)
-      continue;
+        output += concat;
+    }
 
-    if (lookAhead == closure || lookAhead == Union || lookAhead == ')' )
-      continue;
-
-    output += concat;
-  }
-
-  return output;
+    return output;
 }
 
-std::string Parser::toPostFixExpression(std::string concatRegex)
+std::string
+Parser::toPostFixExpression(std::string concatRegex)
 {
-  std::istringstream sConcatRegex{concatRegex};
-  sConcatRegex >> std::noskipws;
+    std::istringstream sConcatRegex{ concatRegex };
+    sConcatRegex >> std::noskipws;
 
-  std::string output;
-  std::stack<char> operators;
+    std::string output;
+    std::stack<char> operators;
 
-  char token;
+    char token;
 
-  if (isOperator(sConcatRegex.peek()))
-    throw "Operator cannot be the start of regex";
+    if (isOperator(sConcatRegex.peek()))
+        throw "Operator cannot be the start of regex";
 
+    while (sConcatRegex >> token) {
+        const char lookAhead = sConcatRegex.peek();
 
-  while (sConcatRegex >> token)
-  {
-    const char lookAhead = sConcatRegex.peek();
+        if (isBinary(token) && isBinary(lookAhead))
+            throw "Two binary operators cannot percede eachoter";
 
-    if (isBinary(token) && isBinary(lookAhead))
-      throw "Two binary operators cannot percede eachoter";
+        if (isBinary(token) && isUnary(lookAhead))
+            throw "Unary opration cannot percede a binary operator";
 
-    if (isBinary(token) && isUnary(lookAhead))
-      throw "Unary opration cannot percede a binary operator";
+        if (isBinary(token) && (lookAhead == ')'))
+            throw "closing bracket cannot come after binary operation";
 
-    if (isBinary(token) && (lookAhead == ')'))
-      throw "closing bracket cannot come after binary operation";
+        if (isBinary(token) && lookAhead == EOF)
+            throw "expression cannot end with binary expression";
 
-    if (isBinary(token) && lookAhead == EOF)
-      throw "expression cannot end with binary expression";
+        if (token == concat || token == Union || token == closure) {
+            while (!operators.empty() && operators.top() != '(' &&
+                   operators.top() <= token) {
+                output += operators.top();
+                operators.pop();
+            }
 
-    if (token == concat || token == Union || token == closure)
-    {
-      while (!operators.empty() && operators.top() != '(' 
-          && operators.top() <= token)
-      {
+            operators.push(token);
+            continue;
+        }
+
+        if (token == '(') {
+            operators.push(token);
+            continue;
+        }
+
+        if (token == ')') {
+            while (!operators.empty() && operators.top() != '(') {
+                output += operators.top();
+                operators.pop();
+            }
+
+            if (operators.empty())
+                throw ") at position " + std::to_string(sConcatRegex.tellg()) +
+                  " has no opening tag";
+
+            operators.pop();
+            continue;
+        }
+
+        output += token;
+    }
+
+    while (!operators.empty()) {
+        // TODO: To check for errors, count the numbers of symbols in the
+        // output.
         output += operators.top();
         operators.pop();
-      }
-
-      operators.push(token);
-      continue;
     }
 
-    if (token == '(')
-    {
-      operators.push(token);
-      continue;
-    }
-
-    if (token == ')')
-    {
-      while (!operators.empty() && operators.top() != '(')
-      {
-        output += operators.top();
-        operators.pop();
-      }
-
-      if (operators.empty())
-        throw ") at position " + std::to_string(sConcatRegex.tellg()) 
-          + " has no opening tag";
-
-      operators.pop();
-      continue;
-    }
-
-    output += token;
-  }
-
-while (!operators.empty())
-  {
-    //TODO: To check for errors, count the numbers of symbols in the output.
-    output += operators.top();
-    operators.pop();
-  }
-
-  return output;
+    return output;
 }
 
-
-std::string Parser::convertToExplictConcatPostFixExpression(std::string regex)
+std::string
+Parser::convertToExplictConcatPostFixExpression(std::string regex)
 {
-  return toPostFixExpression(insertExplicitConcatOperator(regex));
-
+    return toPostFixExpression(insertExplicitConcatOperator(regex));
 }
-

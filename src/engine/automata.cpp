@@ -14,6 +14,7 @@ Automata::NDFA::NDFA()
 }
 
 
+
 Automata::NDFA::NDFA(char symbol)
 {  
   start = State::create();
