@@ -27,5 +27,6 @@ if [ -d "./include" ]; then
 fi
 
 cd build
-Make install
+cmake ..
+make install
 
