@@ -4,6 +4,7 @@ Status](https://travis-ci.com/Deftextra/regexEngine.svg?branch=master)](https://
 # Regex engine implementation
 The aim of this project is to create a regular expression engine using
 [Thompson's construction](https://en.wikipedia.org/wiki/Thompson%27s_construction)
+
 **Note: This is a personal educational project and is not meant to be used inside a production environment.**
 
 At the current stage in development, the engine converts each regex expression into its corresponding non deterministic finite automata and supports only text directed matching.
